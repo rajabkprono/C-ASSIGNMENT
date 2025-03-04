@@ -1,0 +1,129 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Employee {
+private:
+    string name;
+    int employeeID;
+    double salary;
+
+public:
+    void setName(string n) { name = n; }
+    string getName() { return name; }
+    void setEmployeeID(int id) { employeeID = id; }
+    int getEmployeeID() { return employeeID; }
+    void setSalary(double s) { salary = s; }
+    double getSalary() { return salary; }
+    virtual void inputDetails() {
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter Employee ID: ";
+        cin >> employeeID;
+        cout << "Enter Salary: ";
+        cin >> salary;
+    }
+    virtual void displayDetails() {
+        cout << "Name: " << name << endl;
+        cout << "Employee ID: " << employeeID << endl;
+        cout << "Salary: " << salary << endl;
+    }
+};
+
+class Manager : public Employee {
+private:
+    string department;
+    double bonus;
+
+public:
+    void setDepartment(string dept) { department = dept; }
+    string getDepartment() { return department; }
+    void setBonus(double b) { bonus = b; }
+    double getBonus() { return bonus; }
+    void inputDetails() override {
+        Employee::inputDetails();
+        cout << "Enter Department: ";
+        cin >> department;
+        cout << "Enter Bonus: ";
+        cin >> bonus;
+    }
+    void displayDetails() override {
+        Employee::displayDetails();
+        cout << "Department: " << department << endl;
+        cout << "Bonus: " << bonus << endl;
+    }
+};
+
+class Engineer : public Employee {
+private:
+    string specialization;
+    string projectAssigned;
+
+public:
+    void setSpecialization(string spec) { specialization = spec; }
+    string getSpecialization() { return specialization; }
+    void setProjectAssigned(string project) { projectAssigned = project; }
+    string getProjectAssigned() { return projectAssigned; }
+    void inputDetails() override {
+        Employee::inputDetails();
+        cout << "Enter Specialization: ";
+        cin >> specialization;
+        cout << "Enter Project Assigned: ";
+        cin >> projectAssigned;
+    }
+    void displayDetails() override {
+        Employee::displayDetails();
+        cout << "Specialization: " << specialization << endl;
+        cout << "Project Assigned: " << projectAssigned << endl;
+    }
+};
+
+class EmployeeManagementSystem {
+private:
+    vector<Employee*> employees;
+
+public:
+    void addEmployee(Employee* emp) {
+        employees.push_back(emp);
+    }
+    void displayAllEmployees() {
+        for (auto& emp : employees) {
+            emp->displayDetails();
+            cout << endl;
+        }
+    }
+    void searchEmployeeByID(int id) {
+        for (auto& emp : employees) {
+            if (emp->getEmployeeID() == id) {
+                emp->displayDetails();
+                return;
+            }
+        }
+        cout << "Employee not found!" << endl;
+    }
+};
+
+int main() {
+    EmployeeManagementSystem system;
+    
+    Manager* m1 = new Manager();
+    m1->inputDetails();
+    system.addEmployee(m1);
+    
+    Engineer* e1 = new Engineer();
+    e1->inputDetails();
+    system.addEmployee(e1);
+
+    system.displayAllEmployees();
+
+    int searchID;
+    cout << "Enter Employee ID to search: ";
+    cin >> searchID;
+    system.searchEmployeeByID(searchID);
+
+    delete m1;
+    delete e1;
+
+    return 0;
+}
