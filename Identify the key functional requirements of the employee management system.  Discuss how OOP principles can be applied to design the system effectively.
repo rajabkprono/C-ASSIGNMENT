@@ -1,0 +1,12 @@
+Key Functional Requirements of the Employee Management System:
+
+Employee Management: The system should be able to handle employee details such as name, employee ID, and salary.
+Role-based Information: The system should distinguish between different types of employees, such as managers and engineers, and allow for the addition of role-specific attributes like department, bonus, specialization, and assigned projects.
+Search and Display: The system should allow for displaying details of all employees, and searching employees by their unique ID.
+Record Management: The system should support adding new employees, viewing details of all employees, and searching employee records.
+Application of OOP Principles:
+
+Encapsulation: The employee attributes like name, employeeID, and salary will be encapsulated in private fields. Public methods (getter and setter) will allow access to these attributes.
+Inheritance: The Manager and Engineer classes will inherit from the base class Employee, allowing them to reuse the common employee attributes and behavior while adding their own specific attributes and methods.
+Polymorphism: The Display() method will be overridden in the derived classes (Manager and Engineer) to provide role-specific display behavior.
+Abstraction: The Employee class will define common attributes and methods, while details for specific types of employees will be abstracted into their respective subclasses.
